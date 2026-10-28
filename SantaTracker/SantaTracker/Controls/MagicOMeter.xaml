@@ -1,0 +1,267 @@
+<UserControl x:Class="SantaTracker.Controls.MagicOMeter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:utu="using:Uno.Toolkit.UI">
+
+    <!-- Main Container with Background -->
+    <Border Background="{StaticResource ScannerBackgroundGradient}"
+            CornerRadius="24"
+            Padding="0">
+
+        <!-- Glass Card -->
+        <Border Background="{StaticResource ScannerCardGlassBrush}"
+                BorderBrush="#26FFFFFF"
+                BorderThickness="1"
+                CornerRadius="24"
+                Padding="28,24">
+
+            <Grid>
+                <!-- Corner Decorations -->
+                <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-16,-12,0,0">
+                    <Border Width="20" Height="2" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" />
+                    <Border Width="2" Height="20" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" />
+                </Canvas>
+                <Canvas HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-16,-12">
+                    <Border Width="20" Height="2" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" Canvas.Left="-20" Canvas.Top="18" />
+                    <Border Width="2" Height="20" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" Canvas.Left="-2" />
+                </Canvas>
+
+                <!-- Main Content -->
+                <utu:AutoLayout Orientation="Vertical" Spacing="20">
+
+                    <!-- Header -->
+                    <utu:AutoLayout Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+                        <Border Width="44" Height="44"
+                                Background="{StaticResource MagicLogoGradient}"
+                                CornerRadius="12">
+                            <TextBlock Text="✨"
+                                       FontSize="22"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Border>
+                        <utu:AutoLayout Orientation="Vertical" Spacing="2" VerticalAlignment="Center">
+                            <TextBlock Text="Magic-O-Meter"
+                                       FontFamily="ms-appx:///Assets/Fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf#Berkshire Swash"
+                                       FontSize="18"
+                                       Foreground="{StaticResource ScannerSnowBrush}" />
+                            <TextBlock Text="Global Christmas Magic Levels"
+                                       FontSize="10"
+                                       Foreground="{StaticResource ScannerSnowBrush}"
+                                       Opacity="0.5" />
+                        </utu:AutoLayout>
+                    </utu:AutoLayout>
+
+                    <!-- Half-Circle Gauge -->
+                    <Grid Width="200" Height="120" HorizontalAlignment="Center">
+                        <!-- Gauge Background -->
+                        <Border Width="200" Height="100"
+                                VerticalAlignment="Top"
+                                CornerRadius="100,100,0,0"
+                                Background="#4D000000"
+                                BorderBrush="#1AFFFFFF"
+                                BorderThickness="2,2,2,0">
+
+                            <!-- Gauge Scale Segments -->
+                            <Grid>
+                                <!-- Ice Blue segment -->
+                                <Border Width="180" Height="90"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,5,0,0"
+                                        CornerRadius="90,90,0,0"
+                                        Opacity="0.6">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                            <GradientStop Color="{StaticResource ScannerIceBlueColor}" Offset="0" />
+                                            <GradientStop Color="{StaticResource ScannerNiceGreenColor}" Offset="0.25" />
+                                            <GradientStop Color="{StaticResource ScannerGoldColor}" Offset="0.5" />
+                                            <GradientStop Color="{StaticResource MagicPinkColor}" Offset="0.75" />
+                                            <GradientStop Color="{StaticResource MagicPurpleColor}" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+
+                                <!-- Inner dark overlay for depth -->
+                                <Border Width="140" Height="70"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Center"
+                                        Margin="0,15,0,0"
+                                        CornerRadius="70,70,0,0"
+                                        Background="#CC000000" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Tick Marks Container -->
+                        <Canvas Width="200" Height="100" VerticalAlignment="Top">
+                            <!-- Tick marks at key positions -->
+                            <Border Width="2" Height="10" Background="#66FFFFFF" Canvas.Left="18" Canvas.Top="75">
+                                <Border.RenderTransform>
+                                    <RotateTransform Angle="-70" CenterX="1" CenterY="5" />
+                                </Border.RenderTransform>
+                            </Border>
+                            <Border Width="2" Height="10" Background="#66FFFFFF" Canvas.Left="45" Canvas.Top="40">
+                                <Border.RenderTransform>
+                                    <RotateTransform Angle="-45" CenterX="1" CenterY="5" />
+                                </Border.RenderTransform>
+                            </Border>
+                            <Border Width="2" Height="10" Background="#66FFFFFF" Canvas.Left="99" Canvas.Top="8" />
+                            <Border Width="2" Height="10" Background="#66FFFFFF" Canvas.Left="153" Canvas.Top="40">
+                                <Border.RenderTransform>
+                                    <RotateTransform Angle="45" CenterX="1" CenterY="5" />
+                                </Border.RenderTransform>
+                            </Border>
+                            <Border Width="2" Height="10" Background="#66FFFFFF" Canvas.Left="180" Canvas.Top="75">
+                                <Border.RenderTransform>
+                                    <RotateTransform Angle="70" CenterX="1" CenterY="5" />
+                                </Border.RenderTransform>
+                            </Border>
+                        </Canvas>
+
+                        <!-- Needle -->
+                        <Grid Width="200" Height="100" VerticalAlignment="Top">
+                            <Border x:Name="NeedleElement"
+                                    Width="4" Height="70"
+                                    Background="{StaticResource MagicNeedleGradient}"
+                                    CornerRadius="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    RenderTransformOrigin="0.5,1">
+                                <Border.RenderTransform>
+                                    <RotateTransform x:Name="NeedleRotation" Angle="0" />
+                                </Border.RenderTransform>
+                            </Border>
+                        </Grid>
+
+                        <!-- Needle Base Circle -->
+                        <Ellipse Width="20" Height="20"
+                                 Fill="{StaticResource ScannerGoldBrush}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Top"
+                                 Margin="0,90,0,0" />
+
+                        <!-- Scale Labels -->
+                        <TextBlock Text="LOW"
+                                   FontSize="9"
+                                   Foreground="{StaticResource ScannerSnowBrush}"
+                                   Opacity="0.5"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   Margin="10,0,0,0" />
+                        <TextBlock Text="MAX"
+                                   FontSize="9"
+                                   Foreground="{StaticResource ScannerSnowBrush}"
+                                   Opacity="0.5"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0,0,10,0" />
+                    </Grid>
+
+                    <!-- Magic Value Display -->
+                    <utu:AutoLayout Orientation="Vertical" Spacing="4" HorizontalAlignment="Center">
+                        <TextBlock x:Name="MagicValueText"
+                                   Text="847"
+                                   FontFamily="ms-appx:///Assets/Fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf#Berkshire Swash"
+                                   FontSize="42"
+                                   Foreground="{StaticResource MagicPurpleBrush}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Jinglewatts of Christmas Spirit"
+                                   FontSize="11"
+                                   Foreground="{StaticResource ScannerSnowBrush}"
+                                   Opacity="0.5"
+                                   HorizontalAlignment="Center" />
+                    </utu:AutoLayout>
+
+                    <!-- Status Dashboard -->
+                    <Border Background="#33000000"
+                            BorderBrush="#14FFFFFF"
+                            BorderThickness="1"
+                            CornerRadius="12"
+                            Padding="16">
+                        <utu:AutoLayout Orientation="Vertical" Spacing="0">
+                            <!-- Status Row 1 -->
+                            <Grid Height="32">
+                                <TextBlock Text="Reindeer Morale"
+                                           FontSize="11"
+                                           Foreground="{StaticResource ScannerSnowBrush}"
+                                           Opacity="0.5"
+                                           VerticalAlignment="Center" />
+                                <TextBlock x:Name="ReindeerMoraleText"
+                                           Text="Excellent"
+                                           FontSize="11"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource ScannerNiceGreenBrush}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Border Height="1" Background="#0DFFFFFF" />
+
+                            <!-- Status Row 2 -->
+                            <Grid Height="32">
+                                <TextBlock Text="Elf Productivity"
+                                           FontSize="11"
+                                           Foreground="{StaticResource ScannerSnowBrush}"
+                                           Opacity="0.5"
+                                           VerticalAlignment="Center" />
+                                <TextBlock x:Name="ElfProductivityText"
+                                           Text="98.7%"
+                                           FontSize="11"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource ScannerNiceGreenBrush}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Border Height="1" Background="#0DFFFFFF" />
+
+                            <!-- Status Row 3 -->
+                            <Grid Height="32">
+                                <TextBlock Text="Cookie Reserves"
+                                           FontSize="11"
+                                           Foreground="{StaticResource ScannerSnowBrush}"
+                                           Opacity="0.5"
+                                           VerticalAlignment="Center" />
+                                <TextBlock x:Name="CookieReservesText"
+                                           Text="Moderate"
+                                           FontSize="11"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource ScannerGoldBrush}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                            <Border Height="1" Background="#0DFFFFFF" />
+
+                            <!-- Status Row 4 -->
+                            <Grid Height="32">
+                                <TextBlock Text="Snow Globe Stability"
+                                           FontSize="11"
+                                           Foreground="{StaticResource ScannerSnowBrush}"
+                                           Opacity="0.5"
+                                           VerticalAlignment="Center" />
+                                <TextBlock x:Name="SnowGlobeText"
+                                           Text="Enchanted"
+                                           FontSize="11"
+                                           FontWeight="Medium"
+                                           Foreground="{StaticResource MagicPurpleBrush}"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+                        </utu:AutoLayout>
+                    </Border>
+
+                    <!-- Footer -->
+                    <Border BorderBrush="#14FFFFFF"
+                            BorderThickness="0,1,0,0"
+                            Padding="0,12,0,0">
+                        <TextBlock HorizontalAlignment="Center"
+                                   FontSize="10">
+                            <Run Text="Powered by " Foreground="#4DFFFFFF" />
+                            <Run Text="Polar Enchantments" Foreground="{StaticResource ScannerGoldBrush}" />
+                            <Run Text="™" Foreground="#4DFFFFFF" />
+                        </TextBlock>
+                    </Border>
+
+                </utu:AutoLayout>
+            </Grid>
+        </Border>
+    </Border>
+
+</UserControl>

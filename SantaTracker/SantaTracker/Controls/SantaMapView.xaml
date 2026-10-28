@@ -1,0 +1,50 @@
+<UserControl x:Class="SantaTracker.Controls.SantaMapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mapsui="using:Mapsui.UI.WinUI">
+
+    <Grid>
+        <!-- MapsUI MapControl -->
+        <mapsui:MapControl x:Name="MapControl"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch" />
+
+        <!-- Coordinates overlay (bottom left) -->
+        <Border VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="16,0,0,12"
+                Background="{StaticResource CoordinatesBackgroundBrush}"
+                Padding="10,6"
+                CornerRadius="6">
+            <TextBlock x:Name="CoordinatesText"
+                       Text="{x:Bind CoordinatesDisplay, Mode=OneWay}"
+                       FontSize="11"
+                       FontWeight="SemiBold"
+                       Foreground="{StaticResource AegisTelemetryGoldBrush}"
+                       FontFamily="Consolas" />
+        </Border>
+
+        <!-- Live indicator overlay (top left) -->
+        <Border VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="16,12"
+                Padding="12,8"
+                Background="{StaticResource OverlayBackgroundBrush}"
+                CornerRadius="8">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <!-- Pulsing red dot -->
+                <Grid Width="10" Height="10">
+                    <Ellipse Width="10" Height="10" Fill="{StaticResource AccentRedBrush}" Opacity="0.4" />
+                    <Ellipse Width="6" Height="6" Fill="{StaticResource AccentRedBrush}"
+                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+                <TextBlock Text="LIVE SANTA TRACKER"
+                           FontSize="10"
+                           FontWeight="Bold"
+                           CharacterSpacing="120"
+                           Foreground="{StaticResource TextSecondaryBrush}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</UserControl>

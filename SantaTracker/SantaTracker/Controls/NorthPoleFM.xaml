@@ -1,0 +1,416 @@
+<UserControl x:Class="SantaTracker.Controls.NorthPoleFM"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:utu="using:Uno.Toolkit.UI">
+
+    <UserControl.Resources>
+        <!-- Vinyl Spin Animation -->
+        <Storyboard x:Key="VinylSpinAnimation" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="VinylRotation"
+                             Storyboard.TargetProperty="Angle"
+                             From="0" To="360"
+                             Duration="0:0:8" />
+        </Storyboard>
+
+        <!-- Sound Wave 1 Animation -->
+        <Storyboard x:Key="SoundWave1Animation" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="Wave1Scale"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0.95" To="1.15" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Wave1Scale"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="0.95" To="1.15" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Wave1"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.6" To="0" Duration="0:0:2" />
+        </Storyboard>
+
+        <!-- Sound Wave 2 Animation -->
+        <Storyboard x:Key="SoundWave2Animation" RepeatBehavior="Forever" BeginTime="0:0:0.5">
+            <DoubleAnimation Storyboard.TargetName="Wave2Scale"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0.95" To="1.2" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Wave2Scale"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="0.95" To="1.2" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Wave2"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.5" To="0" Duration="0:0:2" />
+        </Storyboard>
+
+        <!-- Sound Wave 3 Animation -->
+        <Storyboard x:Key="SoundWave3Animation" RepeatBehavior="Forever" BeginTime="0:0:1">
+            <DoubleAnimation Storyboard.TargetName="Wave3Scale"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="0.95" To="1.25" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Wave3Scale"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="0.95" To="1.25" Duration="0:0:2">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="Wave3"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.4" To="0" Duration="0:0:2" />
+        </Storyboard>
+
+        <!-- Live Dot Pulse Animation -->
+        <Storyboard x:Key="LiveDotPulseAnimation" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="LiveDot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0.3" Duration="0:0:1">
+                <DoubleAnimation.EasingFunction>
+                    <SineEase EasingMode="EaseInOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <!-- Main Container with Background -->
+    <Border Background="{StaticResource ScannerBackgroundGradient}"
+            CornerRadius="24"
+            Padding="0">
+
+        <!-- Glass Card -->
+        <Border Background="{StaticResource ScannerCardGlassBrush}"
+                BorderBrush="#26FFFFFF"
+                BorderThickness="1"
+                CornerRadius="24"
+                Padding="32">
+
+            <Grid>
+                <!-- Corner Decorations -->
+                <Canvas HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-20,-12,0,0">
+                    <Border Width="20" Height="2" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" />
+                    <Border Width="2" Height="20" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" />
+                </Canvas>
+                <Canvas HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-20,-12">
+                    <Border Width="20" Height="2" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" Canvas.Left="-20" Canvas.Top="18" />
+                    <Border Width="2" Height="20" Background="{StaticResource ScannerGoldBrush}" Opacity="0.3" Canvas.Left="-2" />
+                </Canvas>
+
+                <!-- Horizontal Layout: Vinyl (Left) + Controls (Right) -->
+                <utu:AutoLayout Orientation="Horizontal" Spacing="32">
+
+                    <!-- ========== LEFT: Vinyl Section ========== -->
+                    <Grid Width="180" Height="180">
+                        <!-- Sound Waves (behind vinyl) -->
+                        <Ellipse x:Name="Wave3" Width="220" Height="220"
+                                 Stroke="{StaticResource RadioCrimsonBrush}"
+                                 StrokeThickness="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Opacity="0"
+                                 RenderTransformOrigin="0.5,0.5">
+                            <Ellipse.RenderTransform>
+                                <ScaleTransform x:Name="Wave3Scale" ScaleX="1" ScaleY="1" />
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                        <Ellipse x:Name="Wave2" Width="210" Height="210"
+                                 Stroke="{StaticResource RadioCrimsonBrush}"
+                                 StrokeThickness="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Opacity="0"
+                                 RenderTransformOrigin="0.5,0.5">
+                            <Ellipse.RenderTransform>
+                                <ScaleTransform x:Name="Wave2Scale" ScaleX="1" ScaleY="1" />
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+                        <Ellipse x:Name="Wave1" Width="200" Height="200"
+                                 Stroke="{StaticResource RadioCrimsonBrush}"
+                                 StrokeThickness="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Opacity="0"
+                                 RenderTransformOrigin="0.5,0.5">
+                            <Ellipse.RenderTransform>
+                                <ScaleTransform x:Name="Wave1Scale" ScaleX="1" ScaleY="1" />
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+
+                        <!-- Vinyl Record -->
+                        <Grid x:Name="VinylRecord" Width="160" Height="160"
+                              RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <RotateTransform x:Name="VinylRotation" Angle="0" />
+                            </Grid.RenderTransform>
+
+                            <!-- Vinyl Disc Base -->
+                            <Ellipse Width="160" Height="160"
+                                     Fill="{StaticResource VinylRecordGradient}" />
+
+                            <!-- Vinyl Grooves -->
+                            <Ellipse Width="140" Height="140"
+                                     Stroke="#08FFFFFF"
+                                     StrokeThickness="1"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+                            <Ellipse Width="120" Height="120"
+                                     Stroke="#08FFFFFF"
+                                     StrokeThickness="1"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+                            <Ellipse Width="100" Height="100"
+                                     Stroke="#08FFFFFF"
+                                     StrokeThickness="1"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+                            <Ellipse Width="80" Height="80"
+                                     Stroke="#08FFFFFF"
+                                     StrokeThickness="1"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+
+                            <!-- Record Label -->
+                            <Ellipse Width="64" Height="64"
+                                     Fill="{StaticResource VinylLabelGradient}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+
+                            <!-- Spindle Hole -->
+                            <Ellipse Width="12" Height="12"
+                                     Fill="{StaticResource ScannerSnowBrush}"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+                        </Grid>
+                    </Grid>
+
+                    <!-- ========== RIGHT: Controls Section ========== -->
+                    <utu:AutoLayout Orientation="Vertical" Spacing="14" utu:AutoLayout.PrimaryAlignment="Stretch">
+
+                        <!-- Header Row -->
+                        <utu:AutoLayout Orientation="Horizontal" Spacing="12">
+                            <Border Width="40" Height="40"
+                                    Background="{StaticResource RadioLogoGradient}"
+                                    CornerRadius="10">
+                                <TextBlock Text="📻"
+                                           FontSize="20"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Border>
+                            <utu:AutoLayout Orientation="Vertical" Spacing="2" VerticalAlignment="Center">
+                                <TextBlock Text="North Pole FM"
+                                           FontFamily="ms-appx:///Assets/Fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf#Berkshire Swash"
+                                           FontSize="16"
+                                           Foreground="{StaticResource ScannerSnowBrush}" />
+                                <TextBlock Text="Holiday Hits 24/7"
+                                           FontSize="10"
+                                           Foreground="{StaticResource ScannerSnowBrush}"
+                                           Opacity="0.5" />
+                            </utu:AutoLayout>
+                        </utu:AutoLayout>
+
+                        <!-- Now Playing Row -->
+                        <Border Background="#33000000"
+                                BorderBrush="#14FFFFFF"
+                                BorderThickness="1"
+                                CornerRadius="12"
+                                Padding="14,12">
+                            <utu:AutoLayout Orientation="Horizontal" Spacing="16">
+                                <!-- Track Info -->
+                                <utu:AutoLayout Orientation="Vertical" Spacing="4" utu:AutoLayout.PrimaryAlignment="Stretch">
+                                    <!-- Live Indicator -->
+                                    <utu:AutoLayout Orientation="Horizontal" Spacing="6">
+                                        <Ellipse x:Name="LiveDot" Width="6" Height="6"
+                                                 Fill="{StaticResource RadioCrimsonBrush}" />
+                                        <TextBlock Text="NOW PLAYING"
+                                                   FontSize="9"
+                                                   Foreground="{StaticResource RadioCrimsonBrush}"
+                                                   CharacterSpacing="80" />
+                                    </utu:AutoLayout>
+                                    <TextBlock x:Name="SongTitleText"
+                                               Text="Jingle Bell Rock"
+                                               FontFamily="ms-appx:///Assets/Fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf#Berkshire Swash"
+                                               FontSize="14"
+                                               Foreground="{StaticResource ScannerSnowBrush}" />
+                                    <TextBlock x:Name="ArtistNameText"
+                                               Text="Bobby Helms"
+                                               FontSize="11"
+                                               Foreground="{StaticResource ScannerSnowBrush}"
+                                               Opacity="0.5" />
+                                </utu:AutoLayout>
+
+                                <!-- Visualizer (12 bars) -->
+                                <Grid Height="32" VerticalAlignment="Center">
+                                    <utu:AutoLayout x:Name="VisualizerContainer"
+                                                    Orientation="Horizontal"
+                                                    Spacing="2"
+                                                    VerticalAlignment="Bottom" />
+                                </Grid>
+                            </utu:AutoLayout>
+                        </Border>
+
+                        <!-- Controls Row: Player + Volume -->
+                        <utu:AutoLayout Orientation="Horizontal" Spacing="16">
+                            <!-- Player Controls -->
+                            <utu:AutoLayout Orientation="Horizontal" Spacing="10">
+                                <Button x:Name="PrevButton"
+                                        Width="38" Height="38"
+                                        Background="#1AFFFFFF"
+                                        BorderThickness="0"
+                                        CornerRadius="19"
+                                        Padding="0"
+                                        Click="OnPrevClick">
+                                    <TextBlock Text="⏮"
+                                               FontSize="14"
+                                               Foreground="{StaticResource ScannerSnowBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                </Button>
+
+                                <Button x:Name="PlayPauseButton"
+                                        Width="48" Height="48"
+                                        Background="{StaticResource PlayButtonGradient}"
+                                        BorderThickness="0"
+                                        CornerRadius="24"
+                                        Padding="0"
+                                        Click="OnPlayPauseClick">
+                                    <TextBlock x:Name="PlayPauseIcon"
+                                               Text="⏸"
+                                               FontSize="18"
+                                               Foreground="{StaticResource ScannerSnowBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                </Button>
+
+                                <Button x:Name="NextButton"
+                                        Width="38" Height="38"
+                                        Background="#1AFFFFFF"
+                                        BorderThickness="0"
+                                        CornerRadius="19"
+                                        Padding="0"
+                                        Click="OnNextClick">
+                                    <TextBlock Text="⏭"
+                                               FontSize="14"
+                                               Foreground="{StaticResource ScannerSnowBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                </Button>
+                            </utu:AutoLayout>
+
+                            <!-- Volume Slider -->
+                            <Border Background="#20000000"
+                                    CornerRadius="10"
+                                    Padding="10,8"
+                                    utu:AutoLayout.PrimaryAlignment="Stretch">
+                                <utu:AutoLayout Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="🔈"
+                                               FontSize="12"
+                                               Foreground="{StaticResource ScannerSnowBrush}"
+                                               Opacity="0.5"
+                                               VerticalAlignment="Center" />
+                                    <Slider x:Name="VolumeSlider"
+                                            Minimum="0" Maximum="100" Value="75"
+                                            Width="100"
+                                            VerticalAlignment="Center" />
+                                    <TextBlock Text="🔊"
+                                               FontSize="12"
+                                               Foreground="{StaticResource ScannerSnowBrush}"
+                                               Opacity="0.5"
+                                               VerticalAlignment="Center" />
+                                </utu:AutoLayout>
+                            </Border>
+                        </utu:AutoLayout>
+
+                        <!-- Station Presets -->
+                        <utu:AutoLayout Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="ClassicsButton"
+                                    Content="CLASSICS"
+                                    Height="32"
+                                    Padding="12,0"
+                                    Background="#33c41e3a"
+                                    BorderBrush="{StaticResource RadioCrimsonBrush}"
+                                    BorderThickness="1"
+                                    Foreground="{StaticResource ScannerSnowBrush}"
+                                    FontSize="9"
+                                    CornerRadius="6"
+                                    Click="OnStationClick"
+                                    Tag="classics" />
+                            <Button x:Name="CarolsButton"
+                                    Content="CAROLS"
+                                    Height="32"
+                                    Padding="12,0"
+                                    Background="#0DFFFFFF"
+                                    BorderBrush="#1AFFFFFF"
+                                    BorderThickness="1"
+                                    Foreground="#99FFFFFF"
+                                    FontSize="9"
+                                    CornerRadius="6"
+                                    Click="OnStationClick"
+                                    Tag="carols" />
+                            <Button x:Name="JazzButton"
+                                    Content="JAZZ"
+                                    Height="32"
+                                    Padding="12,0"
+                                    Background="#0DFFFFFF"
+                                    BorderBrush="#1AFFFFFF"
+                                    BorderThickness="1"
+                                    Foreground="#99FFFFFF"
+                                    FontSize="9"
+                                    CornerRadius="6"
+                                    Click="OnStationClick"
+                                    Tag="jazz" />
+                            <Button x:Name="PopButton"
+                                    Content="POP"
+                                    Height="32"
+                                    Padding="12,0"
+                                    Background="#0DFFFFFF"
+                                    BorderBrush="#1AFFFFFF"
+                                    BorderThickness="1"
+                                    Foreground="#99FFFFFF"
+                                    FontSize="9"
+                                    CornerRadius="6"
+                                    Click="OnStationClick"
+                                    Tag="pop" />
+                        </utu:AutoLayout>
+
+                        <!-- Footer -->
+                        <Border BorderBrush="#14FFFFFF"
+                                BorderThickness="0,1,0,0"
+                                Padding="0,10,0,0">
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Left"
+                                           FontSize="9"
+                                           VerticalAlignment="Center">
+                                    <Run Text="Powered by " Foreground="#4DFFFFFF" />
+                                    <Run Text="North Pole Broadcasting" Foreground="#80FFFFFF" />
+                                    <Run Text="™" Foreground="#4DFFFFFF" />
+                                </TextBlock>
+                                <TextBlock HorizontalAlignment="Right"
+                                           FontSize="10"
+                                           VerticalAlignment="Center">
+                                    <Run Text="89.25 " Foreground="{StaticResource ScannerGoldBrush}" />
+                                    <Run Text="FM" Foreground="#80FFFFFF" />
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+
+                    </utu:AutoLayout>
+                </utu:AutoLayout>
+            </Grid>
+        </Border>
+    </Border>
+
+</UserControl>

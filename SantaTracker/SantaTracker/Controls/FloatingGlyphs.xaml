@@ -1,0 +1,583 @@
+<UserControl x:Class="SantaTracker.Controls.FloatingGlyphs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             IsHitTestVisible="False">
+
+    <Canvas>
+        <!-- ==================== LAYER 1: DISTANT/SMALL (5-8% opacity, 16-24px) ==================== -->
+
+        <!-- Snowflakes - distant layer (spread across full width) -->
+        <TextBlock Text="❄️" FontSize="16" Opacity="0.05" Canvas.Left="50" Canvas.Top="120">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="18" Opacity="0.06" Canvas.Left="280" Canvas.Top="380">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="14" Opacity="0.05" Canvas.Left="520" Canvas.Top="90">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="16" Opacity="0.07" Canvas.Left="780" Canvas.Top="520">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow4" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="18" Opacity="0.05" Canvas.Left="1020" Canvas.Top="180">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow5" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="15" Opacity="0.06" Canvas.Left="1280" Canvas.Top="420">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow6" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Stars - distant layer -->
+        <TextBlock Text="⭐" FontSize="14" Opacity="0.06" Canvas.Left="150" Canvas.Top="480">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantStar1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="⭐" FontSize="16" Opacity="0.05" Canvas.Left="620" Canvas.Top="620">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantStar2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="✨" FontSize="12" Opacity="0.07" Canvas.Left="920" Canvas.Top="80">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantStar3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="✨" FontSize="14" Opacity="0.05" Canvas.Left="1180" Canvas.Top="280">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantStar4" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <!-- Additional right-side distant elements -->
+        <TextBlock Text="❄️" FontSize="17" Opacity="0.06" Canvas.Left="1480" Canvas.Top="150">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow7" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="15" Opacity="0.05" Canvas.Left="1620" Canvas.Top="480">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantSnow8" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="⭐" FontSize="15" Opacity="0.06" Canvas.Left="1550" Canvas.Top="320">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantStar5" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="✨" FontSize="13" Opacity="0.07" Canvas.Left="1720" Canvas.Top="220">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="DistantStar6" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- ==================== LAYER 2: MID-GROUND (8-12% opacity, 24-36px) ==================== -->
+
+        <!-- Trees -->
+        <TextBlock Text="🎄" FontSize="28" Opacity="0.08" Canvas.Left="30" Canvas.Top="580">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidTree1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎄" FontSize="24" Opacity="0.09" Canvas.Left="480" Canvas.Top="150">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidTree2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🌲" FontSize="26" Opacity="0.07" Canvas.Left="880" Canvas.Top="480">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidTree3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎄" FontSize="22" Opacity="0.08" Canvas.Left="1320" Canvas.Top="220">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidTree4" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Gifts -->
+        <TextBlock Text="🎁" FontSize="28" Opacity="0.10" Canvas.Left="180" Canvas.Top="650">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidGift1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎁" FontSize="24" Opacity="0.08" Canvas.Left="580" Canvas.Top="380">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidGift2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎀" FontSize="22" Opacity="0.09" Canvas.Left="1080" Canvas.Top="120">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidGift3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎁" FontSize="26" Opacity="0.08" Canvas.Left="1380" Canvas.Top="550">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidGift4" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Snowflakes - mid layer -->
+        <TextBlock Text="❄️" FontSize="28" Opacity="0.10" Canvas.Left="350" Canvas.Top="50">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidSnow1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="32" Opacity="0.08" Canvas.Left="750" Canvas.Top="580">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidSnow2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="26" Opacity="0.09" Canvas.Left="1150" Canvas.Top="380">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidSnow3" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Candy/Cookies -->
+        <TextBlock Text="🍪" FontSize="24" Opacity="0.10" Canvas.Left="100" Canvas.Top="280">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidCookie1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🍬" FontSize="22" Opacity="0.09" Canvas.Left="420" Canvas.Top="520">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidCandy1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🍭" FontSize="26" Opacity="0.08" Canvas.Left="980" Canvas.Top="680">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidCandy2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🍪" FontSize="20" Opacity="0.09" Canvas.Left="1250" Canvas.Top="80">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidCookie2" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Ornaments -->
+        <TextBlock Text="🔴" FontSize="20" Opacity="0.11" Canvas.Left="220" Canvas.Top="180">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidOrn1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🟡" FontSize="18" Opacity="0.09" Canvas.Left="680" Canvas.Top="250">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidOrn2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🔴" FontSize="16" Opacity="0.10" Canvas.Left="1120" Canvas.Top="620">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidOrn3" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Additional right-side mid-ground elements -->
+        <TextBlock Text="🎄" FontSize="26" Opacity="0.08" Canvas.Left="1480" Canvas.Top="380">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidTree5" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎁" FontSize="24" Opacity="0.09" Canvas.Left="1580" Canvas.Top="180">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidGift5" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="30" Opacity="0.08" Canvas.Left="1650" Canvas.Top="550">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidSnow4" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🍪" FontSize="22" Opacity="0.09" Canvas.Left="1720" Canvas.Top="350">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidCookie3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🟡" FontSize="17" Opacity="0.10" Canvas.Left="1500" Canvas.Top="620">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidOrn4" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🍬" FontSize="20" Opacity="0.08" Canvas.Left="1780" Canvas.Top="120">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="MidCandy3" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- ==================== LAYER 3: FOREGROUND (12-20% opacity, 36-64px) ==================== -->
+
+        <!-- Large Snowflakes -->
+        <TextBlock Text="❄️" FontSize="48" Opacity="0.12" Canvas.Left="20" Canvas.Top="350">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeSnow1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="42" Opacity="0.15" Canvas.Left="550" Canvas.Top="30">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeSnow2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="56" Opacity="0.10" Canvas.Left="850" Canvas.Top="720">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeSnow3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="❄️" FontSize="44" Opacity="0.13" Canvas.Left="1300" Canvas.Top="350">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeSnow4" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Large Stars -->
+        <TextBlock Text="⭐" FontSize="40" Opacity="0.14" Canvas.Left="300" Canvas.Top="720">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeStar1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="✨" FontSize="36" Opacity="0.16" Canvas.Left="1050" Canvas.Top="50">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeStar2" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Large Trees -->
+        <TextBlock Text="🎄" FontSize="52" Opacity="0.12" Canvas.Left="720" Canvas.Top="450">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeTree1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎄" FontSize="46" Opacity="0.11" Canvas.Left="1350" Canvas.Top="680">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeTree2" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Large Gifts -->
+        <TextBlock Text="🎁" FontSize="44" Opacity="0.14" Canvas.Left="150" Canvas.Top="750">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeGift1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎁" FontSize="38" Opacity="0.12" Canvas.Left="950" Canvas.Top="280">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeGift2" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Santa/Sleigh accents -->
+        <TextBlock Text="🦌" FontSize="38" Opacity="0.13" Canvas.Left="400" Canvas.Top="180">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeReindeer1" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🛷" FontSize="32" Opacity="0.11" Canvas.Left="1200" Canvas.Top="480">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeSleigh1" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Bells/Jingles -->
+        <TextBlock Text="🔔" FontSize="34" Opacity="0.15" Canvas.Left="600" Canvas.Top="650">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeBell1" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- Additional right-side foreground elements -->
+        <TextBlock Text="❄️" FontSize="50" Opacity="0.11" Canvas.Left="1480" Canvas.Top="80">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeSnow5" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎁" FontSize="40" Opacity="0.13" Canvas.Left="1580" Canvas.Top="480">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeGift3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="⭐" FontSize="38" Opacity="0.14" Canvas.Left="1700" Canvas.Top="280">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeStar3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🎄" FontSize="48" Opacity="0.12" Canvas.Left="1650" Canvas.Top="650">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeTree3" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🦌" FontSize="36" Opacity="0.12" Canvas.Left="1520" Canvas.Top="320">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeReindeer2" /></TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock Text="🔔" FontSize="30" Opacity="0.14" Canvas.Left="1780" Canvas.Top="520">
+            <TextBlock.RenderTransform><CompositeTransform x:Name="ForeBell2" /></TextBlock.RenderTransform>
+        </TextBlock>
+
+        <!-- ==================== ANIMATIONS (Using KeyFrames for smooth looping) ==================== -->
+        <Canvas.Resources>
+            <!-- Distant layer - slow, subtle movement -->
+            <Storyboard x:Name="DistantLayerAnim" RepeatBehavior="Forever">
+                <!-- DistantSnow1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="8" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:12" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="-6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:10" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7" Value="10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:14" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.5" Value="-5" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:11" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow5 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow5" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.5" Value="7" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:13" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow6 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow6" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.8" Value="-6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:11.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantStar1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantStar1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.5" Value="6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:9" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantStar2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantStar2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.2" Value="-8" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:10.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantStar3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantStar3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4" Value="5" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantStar4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantStar4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.8" Value="-5" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:9.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow7 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow7" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.5" Value="9" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:11" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantSnow8 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantSnow8" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.2" Value="-7" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:12.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantStar5 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantStar5" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.2" Value="6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- DistantStar6 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DistantStar6" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="-4" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:10" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <!-- Mid layer - moderate movement -->
+            <Storyboard x:Name="MidLayerAnim" RepeatBehavior="Forever">
+                <!-- MidTree1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidTree1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4" Value="12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidTree2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidTree2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.5" Value="-10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidTree3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidTree3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.5" Value="8" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:9" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidTree4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidTree4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.8" Value="-9" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidGift1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidGift1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.8" Value="15" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidGift2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidGift2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.2" Value="-12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidGift3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidGift3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.2" Value="10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidGift4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidGift4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.6" Value="-11" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7.2" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidSnow1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidSnow1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3" Value="18" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidSnow2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidSnow2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.5" Value="-14" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidSnow3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidSnow3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4" Value="12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidCookie1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidCookie1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.3" Value="10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidCandy1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidCandy1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.8" Value="-8" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidCandy2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidCandy2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4" Value="12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidCookie2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidCookie2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.5" Value="-9" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidOrn1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidOrn1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.5" Value="6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidOrn2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidOrn2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3" Value="-5" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidOrn3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidOrn3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.8" Value="7" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidTree5 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidTree5" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.2" Value="11" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidGift5 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidGift5" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.4" Value="-13" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidSnow4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidSnow4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.8" Value="16" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidCookie3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidCookie3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3" Value="-8" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidOrn4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidOrn4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.6" Value="5" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.2" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- MidCandy3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MidCandy3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.2" Value="-10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <!-- Foreground layer - larger movement -->
+            <Storyboard x:Name="ForeLayerAnim" RepeatBehavior="Forever">
+                <!-- ForeSnow1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSnow1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.5" Value="20" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSnow1" Storyboard.TargetProperty="TranslateX">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4" Value="10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeSnow2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSnow2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.8" Value="-18" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeSnow3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSnow3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3" Value="25" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeSnow4 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSnow4" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.6" Value="-16" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.2" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeStar1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeStar1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.2" Value="15" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeStar2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeStar2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.5" Value="-12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeTree1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeTree1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.5" Value="10" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeTree2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeTree2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.2" Value="-12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeGift1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeGift1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.8" Value="22" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeGift1" Storyboard.TargetProperty="TranslateX">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.5" Value="8" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:9" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeGift2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeGift2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3" Value="-15" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeReindeer1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeReindeer1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.5" Value="-15" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeSleigh1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSleigh1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3" Value="12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeBell1 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeBell1" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.2" Value="18" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeSnow5 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeSnow5" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.4" Value="-20" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4.8" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeGift3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeGift3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.2" Value="18" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:6.4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeStar3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeStar3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.6" Value="-14" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.2" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeTree3 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeTree3" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:3.8" Value="12" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:7.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeReindeer2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeReindeer2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2.8" Value="-16" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5.6" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+                <!-- ForeBell2 -->
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ForeBell2" Storyboard.TargetProperty="TranslateY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2" Value="15" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:4" Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Canvas.Resources>
+    </Canvas>
+
+</UserControl>
