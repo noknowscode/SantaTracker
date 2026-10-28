@@ -1,0 +1,252 @@
+<UserControl x:Class="SantaTracker.Controls.GlobeTracker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:utu="using:Uno.Toolkit.UI">
+
+    <Grid Width="260" Height="260">
+        <!-- Atmosphere glow (outer) -->
+        <Ellipse Width="260" Height="260">
+            <Ellipse.Fill>
+                <RadialGradientBrush Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                    <GradientStop Color="#0066CCFF" Offset="0.7" />
+                    <GradientStop Color="#3366CCFF" Offset="0.85" />
+                    <GradientStop Color="#0066CCFF" Offset="1" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <!-- Globe base (ocean) with clipping border -->
+        <Border Width="220" Height="220" CornerRadius="110">
+            <Border.Background>
+                <RadialGradientBrush Center="0.35,0.35" RadiusX="0.6" RadiusY="0.6">
+                    <GradientStop Color="#FF4A90B8" Offset="0" />
+                    <GradientStop Color="#FF2D6A8A" Offset="0.5" />
+                    <GradientStop Color="#FF1A4A6A" Offset="1" />
+                </RadialGradientBrush>
+            </Border.Background>
+
+            <!-- Rotating continents container -->
+            <Canvas Width="220" Height="220" x:Name="ContinentsCanvas">
+                <Canvas.RenderTransform>
+                    <RotateTransform x:Name="GlobeRotation" CenterX="110" CenterY="110" Angle="0" />
+                </Canvas.RenderTransform>
+
+                <!-- North America (simplified) -->
+                <Path Fill="#FF3D6B4F" Opacity="0.9" Canvas.Left="20" Canvas.Top="30">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="60,10" IsClosed="True">
+                                <LineSegment Point="80,15" />
+                                <LineSegment Point="90,25" />
+                                <LineSegment Point="95,45" />
+                                <LineSegment Point="85,65" />
+                                <LineSegment Point="70,75" />
+                                <LineSegment Point="50,70" />
+                                <LineSegment Point="35,55" />
+                                <LineSegment Point="30,35" />
+                                <LineSegment Point="40,20" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+
+                <!-- South America (simplified) -->
+                <Path Fill="#FF3D6B4F" Opacity="0.9" Canvas.Left="55" Canvas.Top="110">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="25,0" IsClosed="True">
+                                <LineSegment Point="40,10" />
+                                <LineSegment Point="45,35" />
+                                <LineSegment Point="35,65" />
+                                <LineSegment Point="20,80" />
+                                <LineSegment Point="10,60" />
+                                <LineSegment Point="15,30" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+
+                <!-- Europe/Africa (simplified) -->
+                <Path Fill="#FF3D6B4F" Opacity="0.9" Canvas.Left="120" Canvas.Top="40">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="20,0" IsClosed="True">
+                                <LineSegment Point="40,5" />
+                                <LineSegment Point="50,20" />
+                                <LineSegment Point="45,40" />
+                                <LineSegment Point="55,70" />
+                                <LineSegment Point="50,100" />
+                                <LineSegment Point="35,110" />
+                                <LineSegment Point="20,90" />
+                                <LineSegment Point="25,60" />
+                                <LineSegment Point="15,35" />
+                                <LineSegment Point="10,15" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+
+                <!-- Asia (simplified) -->
+                <Path Fill="#FF3D6B4F" Opacity="0.9" Canvas.Left="150" Canvas.Top="25">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="10,20" IsClosed="True">
+                                <LineSegment Point="35,10" />
+                                <LineSegment Point="55,15" />
+                                <LineSegment Point="60,35" />
+                                <LineSegment Point="50,55" />
+                                <LineSegment Point="35,65" />
+                                <LineSegment Point="15,55" />
+                                <LineSegment Point="5,35" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+
+                <!-- Australia (simplified) -->
+                <Path Fill="#FF3D6B4F" Opacity="0.9" Canvas.Left="170" Canvas.Top="130">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="10,10" IsClosed="True">
+                                <LineSegment Point="35,5" />
+                                <LineSegment Point="45,20" />
+                                <LineSegment Point="40,40" />
+                                <LineSegment Point="20,45" />
+                                <LineSegment Point="5,30" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+        </Border>
+
+        <!-- Globe highlight (3D effect) -->
+        <Ellipse Width="220" Height="220" IsHitTestVisible="False">
+            <Ellipse.Fill>
+                <RadialGradientBrush Center="0.3,0.25" RadiusX="0.5" RadiusY="0.5">
+                    <GradientStop Color="#30FFFFFF" Offset="0" />
+                    <GradientStop Color="#10FFFFFF" Offset="0.4" />
+                    <GradientStop Color="#00FFFFFF" Offset="1" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <!-- Grid lines (latitude/longitude) clipped by border -->
+        <Border Width="220" Height="220" CornerRadius="110">
+            <Canvas Width="220" Height="220" Opacity="0.15" IsHitTestVisible="False">
+                <!-- Horizontal lines (latitude) -->
+                <Line X1="0" Y1="55" X2="220" Y2="55" Stroke="White" StrokeThickness="0.5" />
+                <Line X1="0" Y1="110" X2="220" Y2="110" Stroke="White" StrokeThickness="0.5" />
+                <Line X1="0" Y1="165" X2="220" Y2="165" Stroke="White" StrokeThickness="0.5" />
+                <!-- Vertical lines (longitude) -->
+                <Line X1="55" Y1="0" X2="55" Y2="220" Stroke="White" StrokeThickness="0.5" />
+                <Line X1="110" Y1="0" X2="110" Y2="220" Stroke="White" StrokeThickness="0.5" />
+                <Line X1="165" Y1="0" X2="165" Y2="220" Stroke="White" StrokeThickness="0.5" />
+            </Canvas>
+        </Border>
+
+        <!-- Globe edge ring -->
+        <Ellipse Width="220" Height="220"
+                 Stroke="#40FFFFFF"
+                 StrokeThickness="1"
+                 Fill="Transparent" />
+
+        <!-- Santa position marker -->
+        <Grid x:Name="SantaMarkerContainer"
+              Width="32" Height="32"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            <!-- Glow ring -->
+            <Ellipse x:Name="MarkerGlow"
+                     Width="32" Height="32"
+                     Opacity="0.4">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFC94643" Offset="0" />
+                        <GradientStop Color="#00C94643" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <!-- Pulse ring -->
+            <Ellipse x:Name="PulseRing"
+                     Width="20" Height="20"
+                     Fill="{StaticResource AccentRedBrush}"
+                     Opacity="0.5"
+                     RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <ScaleTransform x:Name="PulseScale" ScaleX="1" ScaleY="1" />
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <!-- Core marker -->
+            <Ellipse Width="14" Height="14"
+                     Fill="{StaticResource AccentRedBrush}"
+                     Stroke="White"
+                     StrokeThickness="2" />
+            <!-- Sleigh icon -->
+            <TextBlock Text="🛷"
+                       FontSize="10"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,-1,0,0" />
+        </Grid>
+
+        <!-- Coordinate display -->
+        <Border Background="#80162821"
+                CornerRadius="10"
+                Padding="10,6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,8">
+            <TextBlock x:Name="CoordinateText"
+                       FontSize="10"
+                       FontWeight="SemiBold"
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       FontFamily="Consolas"
+                       Text="{x:Bind CoordinateDisplay, Mode=OneWay}" />
+        </Border>
+
+        <!-- Animations -->
+        <Grid.Resources>
+            <!-- Globe rotation -->
+            <Storyboard x:Name="RotationAnimation" RepeatBehavior="Forever">
+                <DoubleAnimation Storyboard.TargetName="GlobeRotation"
+                                 Storyboard.TargetProperty="Angle"
+                                 From="0" To="360"
+                                 Duration="0:0:30" />
+            </Storyboard>
+
+            <!-- Marker pulse -->
+            <Storyboard x:Name="PulseAnimation" RepeatBehavior="Forever">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PulseScale"
+                                               Storyboard.TargetProperty="ScaleX">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:0.8" Value="1.6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PulseScale"
+                                               Storyboard.TargetProperty="ScaleY">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:0.8" Value="1.6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:1.6" Value="1" />
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PulseRing"
+                                               Storyboard.TargetProperty="Opacity">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0.5" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:0.8" Value="0.1" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:1.6" Value="0.5" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <!-- Marker glow pulse -->
+            <Storyboard x:Name="GlowAnimation" RepeatBehavior="Forever">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MarkerGlow"
+                                               Storyboard.TargetProperty="Opacity">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="0.3" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:1" Value="0.6" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:2" Value="0.3" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
+    </Grid>
+
+</UserControl>

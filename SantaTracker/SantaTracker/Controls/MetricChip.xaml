@@ -1,0 +1,28 @@
+<UserControl x:Class="SantaTracker.Controls.MetricChip"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:utu="using:Uno.Toolkit.UI">
+
+    <Border Style="{StaticResource MetricChipStyle}">
+        <utu:AutoLayout Orientation="Vertical" Spacing="8">
+
+            <!-- Label -->
+            <TextBlock x:Name="LabelText"
+                       Style="{StaticResource ChipLabelStyle}"
+                       Text="{x:Bind Label, Mode=OneWay}" />
+
+            <!-- Value -->
+            <TextBlock x:Name="ValueText"
+                       Style="{StaticResource HeroCounterStyle}"
+                       Text="{x:Bind FormattedValue, Mode=OneWay}" />
+
+            <!-- Subtitle (optional) -->
+            <TextBlock x:Name="SubtitleText"
+                       Style="{StaticResource CardSubtitleStyle}"
+                       Text="{x:Bind Subtitle, Mode=OneWay}"
+                       Visibility="{x:Bind HasSubtitle, Mode=OneWay}" />
+
+        </utu:AutoLayout>
+    </Border>
+
+</UserControl>

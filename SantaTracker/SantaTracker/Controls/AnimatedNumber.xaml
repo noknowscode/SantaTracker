@@ -1,0 +1,9 @@
+<UserControl x:Class="SantaTracker.Controls.AnimatedNumber"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <TextBlock x:Name="NumberText"
+               Text="0"
+               Style="{x:Null}" />
+
+</UserControl>

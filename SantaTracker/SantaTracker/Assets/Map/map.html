@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Santa Tracker Map</title>
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #1C332A;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Santa marker styles */
+        .santa-marker {
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .santa-marker:hover {
+            transform: scale(1.1);
+        }
+        .santa-marker-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+        }
+
+        /* Pulse animation for Santa */
+        .santa-pulse {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(201, 70, 67, 0.3);
+            animation: pulse 2s ease-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        /* Next stop marker */
+        .next-stop-marker {
+            width: 32px;
+            height: 32px;
+            font-size: 24px;
+            text-align: center;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            animation: bounce 1s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Info popup */
+        .santa-popup .maplibregl-popup-content {
+            background: #2D4A3D;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .santa-popup .maplibregl-popup-tip {
+            border-top-color: #2D4A3D;
+        }
+        .popup-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+        .popup-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .popup-eta {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 12px;
+            color: #E5C54B;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        // Global state
+        let map = null;
+        let santaMarker = null;
+        let nextStopMarker = null;
+        let santaPopup = null;
+        let currentPosition = null;
+        let animationFrame = null;
+        let isAnimating = false;
+
+        // Animation state
+        let animationStartPos = null;
+        let animationEndPos = null;
+        let animationStartTime = null;
+        let animationDuration = 1000; // ms
+
+        // Post message to C# host
+        function postToHost(type, data) {
+            try {
+                if (window.chrome && window.chrome.webview) {
+                    // WebView2 on Windows
+                    window.chrome.webview.postMessage(JSON.stringify({ type, data }));
+                } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.unoWebView) {
+                    // iOS/macOS WebView
+                    window.webkit.messageHandlers.unoWebView.postMessage(JSON.stringify({ type, data }));
+                } else {
+                    // Fallback for debugging
+                    console.log('PostToHost:', type, data);
+                }
+            } catch (e) {
+                console.error('Error posting to host:', e);
+            }
+        }
+
+        // Initialize the map
+        function initMap(options) {
+            try {
+                const config = typeof options === 'string' ? JSON.parse(options) : options || {};
+
+                const defaultCenter = config.center || [-74.006, 40.7128]; // New York
+                const defaultZoom = config.zoom || 3;
+                const theme = config.theme || 'dark';
+
+                // Use a free tile source (OpenFreeMap or similar)
+                // Positron style for dark theme, or use OSM tiles
+                const styleUrl = theme === 'dark'
+                    ? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+                    : 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+
+                map = new maplibregl.Map({
+                    container: 'map',
+                    style: styleUrl,
+                    center: defaultCenter,
+                    zoom: defaultZoom,
+                    attributionControl: false,
+                    maxZoom: 18,
+                    minZoom: 1
+                });
+
+                map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+                map.on('load', function() {
+                    // Add route source (empty initially)
+                    map.addSource('santa-route', {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            properties: {},
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: []
+                            }
+                        }
+                    });
+
+                    // Add route layer with festive gradient effect
+                    map.addLayer({
+                        id: 'santa-route-glow',
+                        type: 'line',
+                        source: 'santa-route',
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': '#C94643',
+                            'line-width': 8,
+                            'line-opacity': 0.3,
+                            'line-blur': 4
+                        }
+                    });
+
+                    map.addLayer({
+                        id: 'santa-route-line',
+                        type: 'line',
+                        source: 'santa-route',
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': '#C94643',
+                            'line-width': 3,
+                            'line-opacity': 0.9
+                        }
+                    });
+
+                    // Add visited route source
+                    map.addSource('visited-route', {
+                        type: 'geojson',
+                        data: {
+                            type: 'Feature',
+                            properties: {},
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: []
+                            }
+                        }
+                    });
+
+                    map.addLayer({
+                        id: 'visited-route-line',
+                        type: 'line',
+                        source: 'visited-route',
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round'
+                        },
+                        paint: {
+                            'line-color': '#5FAD56',
+                            'line-width': 3,
+                            'line-opacity': 0.7,
+                            'line-dasharray': [2, 2]
+                        }
+                    });
+
+                    postToHost('mapReady', { success: true });
+                });
+
+                map.on('error', function(e) {
+                    postToHost('mapError', { error: e.error ? e.error.message : 'Unknown map error' });
+                });
+
+                map.on('click', function(e) {
+                    postToHost('mapClicked', { lat: e.lngLat.lat, lon: e.lngLat.lng });
+                });
+
+            } catch (e) {
+                postToHost('mapError', { error: e.message });
+            }
+        }
+
+        // Set Santa's position with smooth animation
+        function setSantaPosition(lat, lon, heading, speed, nextStop, eta) {
+            try {
+                const newPos = [parseFloat(lon), parseFloat(lat)];
+                const headingVal = parseFloat(heading) || 0;
+
+                if (!santaMarker) {
+                    // Create Santa marker
+                    const el = document.createElement('div');
+                    el.className = 'santa-marker';
+                    el.innerHTML = `
+                        <div class="santa-pulse"></div>
+                        <div class="santa-marker-inner">&#127877;</div>
+                    `;
+
+                    santaMarker = new maplibregl.Marker({
+                        element: el,
+                        anchor: 'center',
+                        rotation: headingVal
+                    })
+                    .setLngLat(newPos)
+                    .addTo(map);
+
+                    currentPosition = newPos;
+
+                    // Add click handler for popup
+                    el.addEventListener('click', function() {
+                        showSantaPopup(newPos, speed, nextStop, eta);
+                    });
+                } else {
+                    // Animate to new position
+                    if (currentPosition) {
+                        animateMarker(currentPosition, newPos, headingVal);
+                    } else {
+                        santaMarker.setLngLat(newPos);
+                        santaMarker.setRotation(headingVal);
+                        currentPosition = newPos;
+                    }
+                }
+
+                // Update popup if open
+                if (santaPopup && santaPopup.isOpen()) {
+                    updatePopupContent(speed, nextStop, eta);
+                }
+
+            } catch (e) {
+                postToHost('mapError', { error: 'setSantaPosition: ' + e.message });
+            }
+        }
+
+        // Smooth animation between positions
+        function animateMarker(from, to, heading) {
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+
+            animationStartPos = from;
+            animationEndPos = to;
+            animationStartTime = performance.now();
+            isAnimating = true;
+
+            function animate(currentTime) {
+                if (!isAnimating) return;
+
+                const elapsed = currentTime - animationStartTime;
+                const progress = Math.min(elapsed / animationDuration, 1);
+
+                // Ease-out cubic for smooth deceleration
+                const eased = 1 - Math.pow(1 - progress, 3);
+
+                const currentLng = animationStartPos[0] + (animationEndPos[0] - animationStartPos[0]) * eased;
+                const currentLat = animationStartPos[1] + (animationEndPos[1] - animationStartPos[1]) * eased;
+
+                santaMarker.setLngLat([currentLng, currentLat]);
+
+                if (progress < 1) {
+                    animationFrame = requestAnimationFrame(animate);
+                } else {
+                    isAnimating = false;
+                    currentPosition = animationEndPos;
+                }
+            }
+
+            animationFrame = requestAnimationFrame(animate);
+            santaMarker.setRotation(heading);
+        }
+
+        // Show Santa popup with info
+        function showSantaPopup(pos, speed, nextStop, eta) {
+            if (santaPopup) {
+                santaPopup.remove();
+            }
+
+            const content = document.createElement('div');
+            content.innerHTML = `
+                <div class="popup-title">CURRENT SPEED</div>
+                <div class="popup-value">${speed ? Math.round(speed) + ' km/h' : 'N/A'}</div>
+                ${nextStop ? `<div class="popup-eta">Next: ${nextStop}${eta ? ' - ' + eta : ''}</div>` : ''}
+            `;
+
+            santaPopup = new maplibregl.Popup({
+                className: 'santa-popup',
+                closeButton: false,
+                offset: [0, -30]
+            })
+            .setLngLat(pos)
+            .setDOMContent(content)
+            .addTo(map);
+        }
+
+        function updatePopupContent(speed, nextStop, eta) {
+            // Popup content is replaced when showing, so this is handled by showSantaPopup
+        }
+
+        // Set the route (future path)
+        function setRoute(geoJsonLineString) {
+            try {
+                const data = typeof geoJsonLineString === 'string'
+                    ? JSON.parse(geoJsonLineString)
+                    : geoJsonLineString;
+
+                if (map && map.getSource('santa-route')) {
+                    map.getSource('santa-route').setData(data);
+                }
+            } catch (e) {
+                postToHost('mapError', { error: 'setRoute: ' + e.message });
+            }
+        }
+
+        // Set the visited route (past path)
+        function setVisitedRoute(geoJsonLineString) {
+            try {
+                const data = typeof geoJsonLineString === 'string'
+                    ? JSON.parse(geoJsonLineString)
+                    : geoJsonLineString;
+
+                if (map && map.getSource('visited-route')) {
+                    map.getSource('visited-route').setData(data);
+                }
+            } catch (e) {
+                postToHost('mapError', { error: 'setVisitedRoute: ' + e.message });
+            }
+        }
+
+        // Set next stop marker
+        function setNextStop(lat, lon, name) {
+            try {
+                const pos = [parseFloat(lon), parseFloat(lat)];
+
+                if (nextStopMarker) {
+                    nextStopMarker.remove();
+                }
+
+                const el = document.createElement('div');
+                el.className = 'next-stop-marker';
+                el.innerHTML = '&#127877;';
+                el.title = name || 'Next Stop';
+
+                nextStopMarker = new maplibregl.Marker({
+                    element: el,
+                    anchor: 'bottom'
+                })
+                .setLngLat(pos)
+                .addTo(map);
+
+            } catch (e) {
+                postToHost('mapError', { error: 'setNextStop: ' + e.message });
+            }
+        }
+
+        // Fit map to show the route
+        function fitToRoute(padding) {
+            try {
+                const padValue = padding || 50;
+                const source = map.getSource('santa-route');
+
+                if (source && source._data && source._data.geometry && source._data.geometry.coordinates) {
+                    const coords = source._data.geometry.coordinates;
+                    if (coords.length > 0) {
+                        const bounds = coords.reduce((bounds, coord) => {
+                            return bounds.extend(coord);
+                        }, new maplibregl.LngLatBounds(coords[0], coords[0]));
+
+                        map.fitBounds(bounds, {
+                            padding: padValue,
+                            maxZoom: 10,
+                            duration: 1000
+                        });
+                    }
+                }
+            } catch (e) {
+                postToHost('mapError', { error: 'fitToRoute: ' + e.message });
+            }
+        }
+
+        // Fly to Santa's current position
+        function flyToSanta(zoom) {
+            try {
+                if (currentPosition && map) {
+                    map.flyTo({
+                        center: currentPosition,
+                        zoom: zoom || 6,
+                        duration: 1500,
+                        essential: true
+                    });
+                }
+            } catch (e) {
+                postToHost('mapError', { error: 'flyToSanta: ' + e.message });
+            }
+        }
+
+        // Set theme (dark/light)
+        function setTheme(mode) {
+            try {
+                const styleUrl = mode === 'dark'
+                    ? 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+                    : 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json';
+
+                map.setStyle(styleUrl);
+
+                // Re-add sources and layers after style change
+                map.once('style.load', function() {
+                    // Re-add route sources
+                    map.addSource('santa-route', {
+                        type: 'geojson',
+                        data: { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [] } }
+                    });
+
+                    map.addLayer({
+                        id: 'santa-route-glow',
+                        type: 'line',
+                        source: 'santa-route',
+                        paint: { 'line-color': '#C94643', 'line-width': 8, 'line-opacity': 0.3, 'line-blur': 4 }
+                    });
+
+                    map.addLayer({
+                        id: 'santa-route-line',
+                        type: 'line',
+                        source: 'santa-route',
+                        paint: { 'line-color': '#C94643', 'line-width': 3, 'line-opacity': 0.9 }
+                    });
+                });
+
+            } catch (e) {
+                postToHost('mapError', { error: 'setTheme: ' + e.message });
+            }
+        }
+
+        // Clear everything
+        function clearMap() {
+            try {
+                if (santaMarker) {
+                    santaMarker.remove();
+                    santaMarker = null;
+                }
+                if (nextStopMarker) {
+                    nextStopMarker.remove();
+                    nextStopMarker = null;
+                }
+                if (santaPopup) {
+                    santaPopup.remove();
+                    santaPopup = null;
+                }
+                if (map.getSource('santa-route')) {
+                    map.getSource('santa-route').setData({
+                        type: 'Feature',
+                        properties: {},
+                        geometry: { type: 'LineString', coordinates: [] }
+                    });
+                }
+                if (map.getSource('visited-route')) {
+                    map.getSource('visited-route').setData({
+                        type: 'Feature',
+                        properties: {},
+                        geometry: { type: 'LineString', coordinates: [] }
+                    });
+                }
+                currentPosition = null;
+            } catch (e) {
+                postToHost('mapError', { error: 'clearMap: ' + e.message });
+            }
+        }
+
+        // Auto-initialize on load for easier debugging
+        window.addEventListener('load', function() {
+            // Don't auto-init - wait for C# to call initMap
+            console.log('SantaTracker Map ready for initialization');
+        });
+    </script>
+</body>
+</html>

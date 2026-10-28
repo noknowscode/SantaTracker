@@ -1,0 +1,134 @@
+<UserControl x:Class="SantaTracker.Controls.TimelineEntryItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:utu="using:Uno.Toolkit.UI">
+
+    <UserControl.Resources>
+        <Storyboard x:Key="EntryAnimation">
+            <!-- Fade in -->
+            <DoubleAnimation Storyboard.TargetName="ContentRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <!-- Slide in from left -->
+            <DoubleAnimation Storyboard.TargetName="SlideTransform"
+                             Storyboard.TargetProperty="X"
+                             From="-20" To="0"
+                             Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <!-- Timeline Grid: 32px Column A + Content -->
+    <Grid x:Name="ContentRoot" Height="60" Opacity="0">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="SlideTransform" X="-20" />
+        </Grid.RenderTransform>
+        <Grid.ColumnDefinitions>
+            <!-- Column A: Pathing/Markers - 32px fixed -->
+            <ColumnDefinition Width="32" />
+            <!-- Column B: Content -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Column A: Timeline Path + Node -->
+        <Grid HorizontalAlignment="Center">
+            <!-- Gradient line for current (red->transparent) -->
+            <Border Width="2"
+                    VerticalAlignment="Stretch"
+                    Margin="0,30,0,0"
+                    Visibility="{x:Bind IsCurrent, Mode=OneWay}">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="{StaticResource AegisAlertRedColor}" Offset="0" />
+                        <GradientStop Color="#00c6433e" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <!-- Dim line for visited -->
+            <Border Width="2"
+                    Background="{StaticResource TimelineVisitedLineBrush}"
+                    VerticalAlignment="Stretch"
+                    Margin="0,30,0,0"
+                    Visibility="{x:Bind IsVisited, Mode=OneWay}" />
+
+            <!-- Faint line for future -->
+            <Border Width="2"
+                    Background="{StaticResource TimelineFutureLineBrush}"
+                    VerticalAlignment="Stretch"
+                    Margin="0,30,0,0"
+                    Visibility="{x:Bind IsNotVisited, Mode=OneWay}" />
+
+            <!-- Node -->
+            <Grid Width="24" Height="24" VerticalAlignment="Top" Margin="0,4,0,0">
+                <!-- Current: Glowing marker with pulse animation -->
+                <Ellipse x:Name="GlowEllipse"
+                         Width="24" Height="24"
+                         Fill="{StaticResource AegisGlowRedBrush}"
+                         Visibility="{x:Bind IsCurrent, Mode=OneWay}">
+                    <Ellipse.RenderTransform>
+                        <ScaleTransform x:Name="GlowScale" CenterX="12" CenterY="12" />
+                    </Ellipse.RenderTransform>
+                </Ellipse>
+                <Ellipse Width="12" Height="12"
+                         Fill="{StaticResource AegisAlertRedBrush}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Visibility="{x:Bind IsCurrent, Mode=OneWay}" />
+
+                <!-- Visited: 40% opacity filled -->
+                <Ellipse Width="10" Height="10"
+                         Fill="{StaticResource TimelineVisitedNodeBrush}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Visibility="{x:Bind IsVisited, Mode=OneWay}" />
+
+                <!-- Future: Hollow circle -->
+                <Ellipse Width="10" Height="10"
+                         Fill="Transparent"
+                         Stroke="{StaticResource TimelineFutureNodeStrokeBrush}"
+                         StrokeThickness="1.5"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Visibility="{x:Bind IsNotVisited, Mode=OneWay}" />
+            </Grid>
+        </Grid>
+
+        <!-- Column B: Content -->
+        <Grid Grid.Column="1" VerticalAlignment="Top" Margin="12,2,0,0">
+            <utu:AutoLayout Orientation="Horizontal" Spacing="12">
+                <TextBlock Text="{x:Bind CountryFlag, Mode=OneWay}"
+                           FontSize="22"
+                           VerticalAlignment="Top"
+                           Opacity="{x:Bind ContentOpacity, Mode=OneWay}" />
+
+                <utu:AutoLayout Orientation="Vertical" Spacing="4">
+                    <TextBlock Text="{x:Bind City, Mode=OneWay}"
+                               Style="{StaticResource AegisCityNameStyle}"
+                               Opacity="{x:Bind ContentOpacity, Mode=OneWay}" />
+
+                    <utu:AutoLayout Orientation="Horizontal" Spacing="16">
+                        <TextBlock Style="{StaticResource AegisMonoDataStyle}"
+                                   Opacity="{x:Bind ContentOpacity, Mode=OneWay}"
+                                   Text="{x:Bind ArrivalTime, Mode=OneWay}" />
+                        <TextBlock Foreground="{StaticResource AegisTextMutedBrush}"
+                                   FontSize="11"
+                                   Opacity="{x:Bind ContentOpacity, Mode=OneWay}">
+                            <Run Text="{x:Bind FormattedPresents, Mode=OneWay}" />
+                            <Run Text=" gifts" />
+                        </TextBlock>
+                    </utu:AutoLayout>
+                </utu:AutoLayout>
+            </utu:AutoLayout>
+        </Grid>
+    </Grid>
+
+</UserControl>

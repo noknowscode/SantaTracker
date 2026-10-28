@@ -1,0 +1,47 @@
+<UserControl x:Class="SantaTracker.Presentation.Shell"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:SantaTracker.Presentation"
+      xmlns:utu="using:Uno.Toolkit.UI">
+
+    <Border Background="{ThemeResource BackgroundBrush}">
+        <utu:ExtendedSplashScreen x:Name="Splash"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch">
+            <utu:ExtendedSplashScreen.LoadingContentTemplate>
+                <DataTemplate>
+                    <Grid Background="{ThemeResource BackgroundBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <!-- Santa Tracker loading message -->
+                        <StackPanel VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center"
+                                    Spacing="16">
+                            <TextBlock Text="Santa Tracker"
+                                       Style="{StaticResource DisplaySmallTextBlockStyle}"
+                                       Foreground="{ThemeResource OnBackgroundBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="Connecting to North Pole..."
+                                       Style="{StaticResource BodyLargeTextBlockStyle}"
+                                       Foreground="{ThemeResource OnSurfaceVariantBrush}"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                        <ProgressRing IsActive="True"
+                              Grid.Row="1"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center"
+                              Height="60"
+                              Width="60" />
+                    </Grid>
+                </DataTemplate>
+            </utu:ExtendedSplashScreen.LoadingContentTemplate>
+        </utu:ExtendedSplashScreen>
+    </Border>
+
+</UserControl>
